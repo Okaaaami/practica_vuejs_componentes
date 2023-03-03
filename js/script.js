@@ -1,5 +1,7 @@
-// Sample data
+
+var peliculasList=[];
 var server_data = {
+    
     collection :
     {
         title : "Movie List",
@@ -39,22 +41,32 @@ var server_data = {
 };
 
 
-// TODO: Componente edit-form
 Vue.component('edit-form', {
-
+    template: '#editForm',
+    props: ['parametro', 'elemento'],
+    methods:{
+        closeForm: function (elem) {peliculasList.splice(peliculasList.indexOf(elem), 1);}
+    }
 })
 
-// TODO: Componente item-data
 Vue.component('item-data', {
-
+    template: '#itemData',
+    props: ['parametro', 'elemento'],
+    data(){
+        return{
+            editando: false
+        }
+    },
+    
+    methods:{
+        toggledEditFormVisibility: function (elem) {peliculasList.push(elem);}
+    }
 })
 
-// Aplicación VueJS
-// La aplicación recibe los datos en la variable de datos "col"
 var app = new Vue({
     el: '#app',
     data: {
-        col: server_data
+        col: server_data,
+        peliculas: peliculasList
     }
 });
-
